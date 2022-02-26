@@ -24,8 +24,9 @@ app.get('/', (req,res)=>{
 })
 app.use('/api/register', require('./routes/register'));
 app.use('/api/login', require('./routes/login'));
-
-
+app.use('/api/refreshtoken', require('./routes/refreshToken'));
+app.use('/api/logout', require('./routes/logout'));
+app.use('/api/data', require('./routes/userdata'));
 
 app.all('*', (req,res)=>{
     res.status(404);

@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const jwt = require('jwt');
+const jwt = require('jsonwebtoken');
 const { createAccessToken } = require('../config/generateTokens');
 
 const refreshTokenController = async(req,res)=>{
@@ -12,10 +12,10 @@ const refreshTokenController = async(req,res)=>{
     jwt.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,
-        (err,dec)=>{
+        (err,decoded)=>{
             if (err || foundUser.username!==decoded.username) return res.sendStatus(403);
             const roles = Object.values(foundUser.roles);
-            const accessToken = createAccessToken({userInfo : foundUser.userInfo});
+            const accessToken = createAccessToken({userInfo : {username : foundUser.username, role : roles}});
             res.json({accessToken});
         }
 
@@ -28,4 +28,4 @@ const refreshTokenController = async(req,res)=>{
 
 }
 
-module.exports = refreshTokenController;
+module.exports = {refreshTokenController};
