@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken')
 
-const createAccessToken = (data,expTime)=>{
+const createAccessToken = (data,expTime='5m')=>{
     const accessToken = jwt.sign(data,process.env.ACCESS_TOKEN_SECRET, {expiresIn : expTime});
     return accessToken;
 }
 
-const createRefreshToken = (data,expTime)=>{
+const createRefreshToken = (data,expTime='1d')=>{
     const token = jwt.sign(data,process.env.REFRESH_TOKEN_SECRET, {expiresIn : expTime});
     return token;
 }

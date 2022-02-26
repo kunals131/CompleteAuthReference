@@ -23,6 +23,7 @@ app.get('/', (req,res)=>{
     res.send(res.send("HELLO WORLD!"))
 })
 app.use('/api/register', require('./routes/register'));
+app.use('/api/login', require('./routes/login'));
 
 
 
