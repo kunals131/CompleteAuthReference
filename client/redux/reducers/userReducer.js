@@ -1,5 +1,5 @@
 
-const userReducer = (state= {},action)=>{
+const userReducer = (state= null,action)=>{
     switch(action.payload) {
         case 'LOGIN_USER' : return action.payload;
         case 'LOGOUT_USER' : return {};

@@ -6,13 +6,14 @@ const corsOptions = require('./config/cors.config');
 const app = express();
 const connectDB  = require('./config/db.connection');
 const { default: mongoose } = require('mongoose');
-
+const cookie_parser = require('cookie-parser');
 connectDB();
 
 //Setup Middlewares
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookie_parser());
 
 
 //Custom Middlewares
