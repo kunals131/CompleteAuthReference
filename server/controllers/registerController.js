@@ -21,7 +21,6 @@ const registerController = async (req, res) => {
             message : 'New user has been created!',
             userInfo : {
                 username : result.username,
-                role : result.roles,
                 id : result._id
             },
         });

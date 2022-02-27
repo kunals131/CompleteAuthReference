@@ -13,9 +13,8 @@ const loginController = async (req, res) => {
         console.log(foundUser);
         const match = await bcrypt.compare(password, foundUser.password);
         if (match) {
-            const role = foundUser.roles;
             const accessToken = createAccessToken({
-                userInfo: { username, role }
+                userInfo: { username}
             });
             const refreshToken = createRefreshToken({
                 username: foundUser.username
@@ -23,8 +22,9 @@ const loginController = async (req, res) => {
             foundUser.refreshToken = refreshToken;
             const result = await foundUser.save();
             console.log(result);
+            req.sess
 
-            res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
+            res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None',secure : true, maxAge: 24 * 60 * 60 * 1000 });
             res.json({ accessToken });
         }
         else {

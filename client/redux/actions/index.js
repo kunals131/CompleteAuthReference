@@ -1,4 +1,4 @@
-import { persistAuth, signInUser } from "../../api/user.api"
+import { createUser, persistAuth, signInUser } from "../../api/user.api"
 import jwt_decode from "jwt-decode";
 export const setError =(msg)=>({
     type : 'SET_ERROR',
@@ -38,7 +38,20 @@ export const checkUserAuth = ()=>async(dispatch)=>{
     catch(err) {
         dispatch({
             type : 'SET_ERROR',
-            payload : 'NOT LOGGED IN!'
+            payload : 'NOT LOGGED IN!'  
+        })
+    }
+}
+
+export const registerUser = (username,password)=>async(dispatch)=>{
+    try {
+        let result = await createUser(username,password);
+        console.log(result);
+    }
+    catch(err) {
+        dispatch({
+            type : 'SET_ERROR',
+            payload : 'NOT_LOGGED_IN'
         })
     }
 }

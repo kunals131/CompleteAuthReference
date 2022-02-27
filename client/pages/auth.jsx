@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { checkUserAuth, loginUser, setError } from '../redux/actions';
+import { checkUserAuth, loginUser, registerUser, setError } from '../redux/actions';
 
 const Auth = () => {
   const [view,setView] = useState('login');
@@ -27,15 +27,22 @@ const Auth = () => {
   const handleSignUp =()=>{
     console.log(form);
     console.log('register')
+    dispatch(registerUser(form.username,form.password));
   }
   const handleChange = (e)=>{
       setForm({
           ...form, [e.target.name] : e.target.value
       })
   }
+  const handleRefresh = ()=>{
+      dispatch(checkUserAuth());
+  }
   return (
     <div className='bg-slate-500 h-[100vh] w-[100vw] flex justify-center items-center'>
       <div className='bg-white h-auto w-[30%] p-10'>
+          {
+              <button onClick={handleRefresh}>Refresh</button>
+          }
           <h1 className='text-center text-3xl font-bold'>{view==='login'?'LOGIN':'REGISTER'}</h1>
           <div className='mt-3'>
               <div className='flex flex-col'>

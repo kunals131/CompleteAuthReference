@@ -9,7 +9,6 @@ const verifyJWT = (req,res,next)=>{
         (err,decoded)=>{
             if (err)return res.sendStatus(403);
             req.user = decoded.userInfo.username,
-            req.role = decoded.userInfo.role
             next();
         }
         )

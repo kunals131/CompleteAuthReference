@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const logger = require('logger');
 const corsOptions = require('./config/cors.config');
+const credentials = require('./middlewares/credentials');
 const app = express();
 const connectDB  = require('./config/db.connection');
 const { default: mongoose } = require('mongoose');
@@ -14,7 +15,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookie_parser());
-
+app.use(credentials);
 
 //Custom Middlewares
 
